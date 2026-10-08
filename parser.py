@@ -1,6 +1,10 @@
 class Document:
     def __init__(self):
         self.content = []
+    def __getattr__(self, name):
+        for child in self.content:
+            if child.name == name:
+                return child
 class Element:
     def __init__(self):
         self.name=name

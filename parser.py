@@ -6,9 +6,10 @@ class Document:
             if child.name == name:
                 return child
 class Element:
-    def __init__(self):
-        self.name=name
+    def __init__(self,name):
+        self.name
         self.content= []
+        self.attribute={}
     def __getattr__(self, name):
         for child in self.content:
             if child.name == name:
@@ -25,11 +26,11 @@ def parse(source):
             pos += 1
 
             name = ""
-
+            content = ""
             while source[pos] != ":":#scan de l'id
                 name += source[pos]
                 pos += 1
-            element=Element()
+            element=Element(name)
             pos += 1#pos placé après :
             if source[pos] == "{":
                 pos += 1
@@ -38,8 +39,17 @@ def parse(source):
                 else:
                     document.content.append(element)
                 stack.append(element)
-                continue
-            content = ""
+            elif source[pos]=="§":
+                pos+=1
+                while source[pos]!="§":
+                    if source[pos]!="<":
+                        content=content+source[pos]
+                        pos+=1
+                        if source[pos]==";":
+                            element.content=content
+                            pass
+                    pos+=1
+                
             while source[pos] != ";" and source[pos] !="<":
                 content += source[pos]
                 pos += 1
@@ -57,5 +67,4 @@ def parse(source):
                 stack.pop()
         else:
             pos+=1
-    
-    
+parse("<doctype: web;><body:{<header:{<h1: lorem ipsum;>};<main: {<p: §bonjour§;>};};")

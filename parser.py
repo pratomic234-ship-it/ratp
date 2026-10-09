@@ -4,7 +4,7 @@ class Document:
     def __getattr__(self, name):
         for child in self.content:
             if child.name == name:
-                return child
+                return child.content
 class Element:
     def __init__(self,name):
         self.name=name
@@ -82,4 +82,4 @@ def parse(source):
                 stack.pop()
         else:
             pos+=1
-parse("<doctype: web;><body:{<header:{<h1: lorem ipsum dolor;>};<main:{<p:§bonjour <bold: roman;> fabre§;>};};")
+    return document

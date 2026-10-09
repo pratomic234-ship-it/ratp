@@ -1,0 +1,10 @@
+<doctype: web;>
+<body:{
+    <header:{
+        <h1: lorem ipsum;>
+    };
+    <main: {
+        <p: §
+        §;>
+    };
+};

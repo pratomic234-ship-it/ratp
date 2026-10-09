@@ -7,7 +7,7 @@ class Document:
                 return child
 class Element:
     def __init__(self,name):
-        self.name
+        self.name=name
         self.content= []
         self.attribute={}
     def __getattr__(self, name):
@@ -32,24 +32,39 @@ def parse(source):
                 pos += 1
             element=Element(name)
             pos += 1#pos placé après :
-            if source[pos] == "{":
+            if source[pos] == "{":#verification d'une structure
                 pos += 1
                 if stack:
                     stack[-1].content.append(element)
                 else:
                     document.content.append(element)
                 stack.append(element)
+                continue
             elif source[pos]=="§":
                 pos+=1
                 while source[pos]!="§":
                     if source[pos]!="<":
                         content=content+source[pos]
+                        if source[pos]==";":
+                            element.content=content
+                            pass
+                    else:
+                        while source[pos]!=":":
+                            pos+=1
+                        pos+=1
+                        while source[pos]!=";":
+                            content=content+source[pos]
+                            pos+=1
+                        pos+=1
+                        while source[pos]!=">":
+                            pos+=1
                         pos+=1
                         if source[pos]==";":
                             element.content=content
                             pass
+                        continue
                     pos+=1
-                
+                pos+=1
             while source[pos] != ";" and source[pos] !="<":
                 content += source[pos]
                 pos += 1
@@ -67,4 +82,4 @@ def parse(source):
                 stack.pop()
         else:
             pos+=1
-parse("<doctype: web;><body:{<header:{<h1: lorem ipsum;>};<main: {<p: §bonjour§;>};};")
+parse("<doctype: web;><body:{<header:{<h1: lorem ipsum dolor;>};<main:{<p:§bonjour <bold: roman;> fabre§;>};};")

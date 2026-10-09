@@ -383,21 +383,7 @@ plutôt qu'une architecture complète donnée d'un coup.
 Le projet peut être résumé ainsi :
 
                     NOUVEAU WEB
-                         │
-              ┌──────────┴──────────┐
-              │                     │
-       Langage de pages          RATP
-       orienté données        protocole de requête
-              │                     │
-         arbre Document          requêtes
-         / Element              déclaratives
-              │                     │
-              └──────────┬──────────┘
-                         │
-               web orienté données
-                         │
-          optimisation par structure
-
+     Nouvelles URL      Protocoles RATP     nouveau langage
 
 Le langage de pages et RATP sont donc deux composants distincts mais complémentaires.
 

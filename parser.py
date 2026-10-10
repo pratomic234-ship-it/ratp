@@ -69,6 +69,7 @@ def parse(source: str):
                 while source[pos]!='"':
                     content+=source[pos]
                     pos+=1
+                continue
             elif source[pos]=="'" :
                 pos+=1
                 while source[pos]!="'":
@@ -93,4 +94,4 @@ def parse(source: str):
             pos+=1
     return document
 source="<doctype: web;><body:{<header:{<h1: lorem ipsum;>};<main:{<p:§§;>};};"
-parse
+parse(source)

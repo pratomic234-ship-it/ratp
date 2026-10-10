@@ -64,6 +64,11 @@ def parse(source: str):
                         continue
                     pos+=1
                 pos+=1
+            elif source[pos]=='"':
+                pos+=1
+                while source[pos]!='"':
+                    content+=source[pos]
+                    pos+=1
             while source[pos] != ";" and source[pos] !="<":
                 content += source[pos]
                 pos += 1
@@ -73,7 +78,7 @@ def parse(source: str):
                 stack[-1].content.append(element)
             else:
                 document.content.append(element)
-            print(element.name,"=",element.content)
+            print(element.name,"=",element.content)#test line. remove
         elif source[pos]=="}":
             pos+=1
             if source[pos]==";":
@@ -82,3 +87,5 @@ def parse(source: str):
         else:
             pos+=1
     return document
+source="<doctype: web;><body:{<header:{<h1: lorem ipsum;>};<main:{<p:§§;>};};"
+parse

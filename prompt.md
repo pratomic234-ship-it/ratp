@@ -341,7 +341,8 @@ la grammaire formelle.
 Une idée avait été donnée à titre d'exemple :
 
 RATP/1
-GET article
+SELECT article
+FROM
 WHERE id = 42
 
 

@@ -6,4 +6,4 @@ PRIORITY DATA;
 --minimal
 RATP/0.1
 SELECT *
-FROM example.com
+FROM example.com;

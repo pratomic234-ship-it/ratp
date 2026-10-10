@@ -1,4 +1,3 @@
-from parser import parse
 from socket import *
 from asyncio import *
 HOST="localhost"
@@ -10,6 +9,10 @@ with socket(AF_INET,SOCK_STREAM) as s:
     conn, addr= s.accept()
     with conn:
         print("client connected")
-        data=conn.recv(1024)
+        data=b""
+        while b";" not in data:
+            chunk=conn.recv(1024)
+            data+=chunk
+            if not chunk:
+                break
         print("recu:",data.decode())
-        conn.sendall(b"bien recu")

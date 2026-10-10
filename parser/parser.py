@@ -1,20 +1,35 @@
 class Document:
     def __init__(self):
-        self.content = []
+        self.content: list= []
+
     def __getattr__(self, name):
         for child in self.content:
             if child.name == name:
-                return child.content
+                if child.is_structure:
+                    return child
+                return AttributeString(child.content[0], child.attribute)
+        raise AttributeError(name)
+class AttributeString(str):
+    def __new__(cls, value, attributes):
+        text = super().__new__(cls, value)
+        text.attribute = attributes # type: ignore
+        return text
 class Element:
     def __init__(self,name):
-        self.name=name
+        self.name: str=name
         self.content= []
-        self.attribute={}
+        self.value: object| None= None
+        self.attribute: dict={}
+        self.is_structure: bool= False
+
     def __getattr__(self, name):
         for child in self.content:
             if child.name == name:
-                return child.content
+                if child.is_structure:
+                    return child
+                return child.content[0]
         raise AttributeError(name)
+
 def parse(source: str):
     pos = 0
     stack = []
@@ -53,6 +68,7 @@ def parse(source: str):
             element.attribute=attributes
             pos += 1#pos placé après :
             if source[pos] == "{":#verification d'une structure
+                element.is_structure = True
                 pos += 1
                 if stack:
                     stack[-1].content.append(element)
@@ -114,5 +130,6 @@ def parse(source: str):
         else:
             pos+=1
     return document
-source="<doctype: web;><body:{<header:{<h1: lorem ipsum;>};<main:{<p:§§;>};};"#test line
-parse(source)#test line
+source='<doctype: web;><body:{<header type="string":{<h1 class="title": lorem ipsum;>};<main:{<p:§§;>};};'#test line
+doc=parse(source)#test line
+print(doc.body.header.h1)

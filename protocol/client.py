@@ -1,5 +1,5 @@
-from socket import *
-from asyncio import *
+from socket import *#type:ignore
+from asyncio import *#type:ignore
 import time
 HOST="localhost"
 PORT=8080

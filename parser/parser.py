@@ -26,10 +26,31 @@ def parse(source: str):
 
             name = ""
             content = ""
-            while source[pos] != ":":#scan de l'id
+            attributes={}
+            # Lire le nom jusqu'à l'espace qui annonce un attribut, ou jusqu'à :
+            while source[pos] != " " and source[pos] != ":":
                 name += source[pos]
                 pos += 1
+            # Lire les attributs jusqu'au :
+            while source[pos] != ":":
+                if source[pos] == " ":
+                    pos += 1
+                    continue
+                attribute_name = ""
+                while source[pos] != "=":
+                    attribute_name += source[pos]
+                    pos += 1
+            
+                pos += 1  # passer le =
+                pos += 1  # passer le guillemet ouvrant
+                attribute_content = ""
+                while source[pos] != '"':
+                    attribute_content += source[pos]
+                    pos += 1
+                pos += 1  # passer le guillemet fermant
+                attributes[attribute_name] = attribute_content
             element=Element(name)
+            element.attribute=attributes
             pos += 1#pos placé après :
             if source[pos] == "{":#verification d'une structure
                 pos += 1
@@ -64,7 +85,7 @@ def parse(source: str):
                         continue
                     pos+=1
                 pos+=1
-            elif source[pos]=='"' :
+            elif source[pos]=='"' :#gestion des string ""
                 pos+=1
                 while source[pos]!='"':
                     content+=source[pos]
@@ -93,5 +114,5 @@ def parse(source: str):
         else:
             pos+=1
     return document
-source="<doctype: web;><body:{<header:{<h1: lorem ipsum;>};<main:{<p:§§;>};};"
-parse(source)
+source="<doctype: web;><body:{<header:{<h1: lorem ipsum;>};<main:{<p:§§;>};};"#test line
+parse(source)#test line

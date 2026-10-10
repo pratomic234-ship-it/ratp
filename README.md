@@ -1,4 +1,4 @@
-# New WEB
+# New WWW
 This project aims to recreate the world wide web through python.
 It is a personal project. 
 

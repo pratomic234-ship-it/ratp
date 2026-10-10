@@ -2,4 +2,8 @@ RATP/0.1
 SELECT *
 FROM example.com
 WHERE body.h1="titre"
-PRIORITY DATA
+PRIORITY DATA;
+--minimal
+RATP/0.1
+SELECT *
+FROM example.com

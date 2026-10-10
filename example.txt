@@ -3,8 +3,37 @@
     <header:{
         <h1: lorem ipsum;>
     };
-    <main: {
+    <main:{
         <p: §
         §;>
+    };
+};
+<doctype:vector;
+<image:{
+    <width:200;
+    <height:200;
+    <background:#87CEEB;
+
+    <circle:{
+        <x: 100;
+        <y: 100;
+        <radius:35;
+        <color:#FFD700;
+    };
+
+    <line:{
+        <x1: 100;
+        <y1: 45;
+        <x2: 100;
+        <y2: 25;
+        <color:#FFD700;
+    };
+
+    <line:{
+        <x1:155;
+        <y1:100;
+        <x2:175;
+        <y2:100;
+        <color:#FFD700;
     };
 };

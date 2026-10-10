@@ -15,13 +15,12 @@ class Element:
             if child.name == name:
                 return child.content
         raise AttributeError(name)
-def parse(source):
+def parse(source: str):
     pos = 0
     stack = []
     root=[]
     document=Document()
     while pos < len(source):
-
         if source[pos] == "<":
             pos += 1
 
@@ -46,7 +45,7 @@ def parse(source):
                     if source[pos]!="<":
                         content=content+source[pos]
                         if source[pos]==";":
-                            element.content=content
+                            element.content.append(content)
                             pass
                     else:
                         while source[pos]!=":":
@@ -60,7 +59,7 @@ def parse(source):
                             pos+=1
                         pos+=1
                         if source[pos]==";":
-                            element.content=content
+                            element.content.append(content)
                             pass
                         continue
                     pos+=1
@@ -68,7 +67,7 @@ def parse(source):
             while source[pos] != ";" and source[pos] !="<":
                 content += source[pos]
                 pos += 1
-            element.content=content
+            element.content.append(content)
             pos += 1
             if stack:
                 stack[-1].content.append(element)

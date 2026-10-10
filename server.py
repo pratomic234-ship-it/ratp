@@ -10,6 +10,6 @@ with socket(AF_INET,SOCK_STREAM) as s:
     conn, addr= s.accept()
     with conn:
         print("client connected")
-        data=conn.rcv(1024)
+        data=conn.recv(1024)
         print("recu:",data.decode())
         conn.sendall(b"bien recu")

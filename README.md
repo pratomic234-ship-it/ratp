@@ -1,4 +1,4 @@
-# New WWW
+# New WWW (version alpha 0.1)
 This project aims to recreate the world wide web through python.
 It is a personal project. 
 

@@ -64,9 +64,14 @@ def parse(source: str):
                         continue
                     pos+=1
                 pos+=1
-            elif source[pos]=='"':
+            elif source[pos]=='"' :
                 pos+=1
                 while source[pos]!='"':
+                    content+=source[pos]
+                    pos+=1
+            elif source[pos]=="'" :
+                pos+=1
+                while source[pos]!="'":
                     content+=source[pos]
                     pos+=1
             while source[pos] != ";" and source[pos] !="<":

@@ -392,3 +392,23 @@ Le projet peut être résumé ainsi :
      Nouvelles URL      Protocoles RATP     nouveau langage
 
 Le langage de pages et RATP sont donc deux composants distincts mais complémentaires.
+
+14. État récent du projet et travail avec les sockets
+
+L'utilisateur a ensuite demandé de réaliser le protocole avec des sockets Python, mais a précisé qu'il voulait d'abord apprendre comment faire et comprendre les étapes. Ne pas coder tout le client/serveur d'un coup : expliquer le principe, puis avancer avec une petite étape à la fois, en laissant l'utilisateur écrire ou valider le code.
+
+Les sockets servent au transport des données ; elles ne définissent pas à elles seules la syntaxe ou les règles de RATP. Pour un échange TCP, expliquer séparément le rôle du serveur, celui du client, l'envoi/réception d'octets et la délimitation de la fin d'une requête. Ne pas décider silencieusement de ces règles.
+
+État des fichiers observé sur `main` après les commits récents :
+
+- `protocol.py` ne contient que des imports (`parser`, `asyncio`, `logging`, `socket`) ; aucun échange réseau RATP n'y est encore implémenté.
+- `client.py` contient des imports et les constantes `HOST="localhost"` et `PORT=8080`.
+- `server.py` existe mais est vide.
+- `example.ratp` contient une esquisse expérimentale avec `RATP/0.1`, `SELECT`, `FROM` et `WHERE`. Cette syntaxe n'est pas une spécification définitive.
+- Le commit `85ddf6a` a ajouté les premiers fichiers client/serveur et un exemple minimal ; `31f0fb0` a ajouté un autre exemple RATP et démarré `protocol.py` ; `a6d626b` a enrichi le README.
+
+L'utilisateur s'intéresse aussi à Git et peut demander des commandes précises. Expliquer simplement les notions demandées (par exemple `stash`) et ne pas exécuter de changement de branche, de stash ou de commit sans demande explicite.
+
+Avant toute modification ou tout commit, vérifier l'état Git. Ne jamais inclure par inadvertance les changements préexistants de l'utilisateur dans un commit ciblé ; ne committer que les fichiers explicitement concernés.
+
+Pour le contexte du projet, consulter d'abord ce fichier de prompt et l'historique Git pertinent ; ne pas prendre le README comme source principale du contexte.

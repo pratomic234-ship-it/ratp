@@ -392,15 +392,3 @@ Le projet peut être résumé ainsi :
      Nouvelles URL      Protocoles RATP     nouveau langage
 
 Le langage de pages et RATP sont donc deux composants distincts mais complémentaires.
-
-Le prochain travail demandé concerne RATP.
-
-Il faut commencer par ses fondations, idéalement en définissant progressivement sa syntaxe de requête avant de coder un serveur ou un client.
-
-Ne pas partir immédiatement dans une implémentation réseau complète.
-
-Commencer par répondre à :
-
-À quoi ressemble exactement une requête RATP minimale ?
-
-Puis formaliser progressivement sa grammaire.

@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/pratomic234-ship-it/ratp/issues"
   },
-  "homepage": "https://github.com/pratomic234-ship-it/ratp#readme"
+  "homepage": "https://github.com/pratomic234-ship-it/ratp#readme",
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
 }

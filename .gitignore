@@ -1,3 +1,4 @@
 __pycache__/test.cpython-314.pyc
 .vscode/settings.json
 __pycache__/parser.cpython-314.pyc
+node_modules/*

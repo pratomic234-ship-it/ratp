@@ -1,0 +1,21 @@
+{
+  "name": "ratp",
+  "version": "1.0.0",
+  "description": "This project aims to recreate the world wide web through python.\r I am a beginner, and this is a personal project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pratomic234-ship-it/ratp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/pratomic234-ship-it/ratp/issues"
+  },
+  "homepage": "https://github.com/pratomic234-ship-it/ratp#readme"
+}

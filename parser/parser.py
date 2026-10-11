@@ -92,13 +92,21 @@ def parse(source: str):
                     content += source[pos]
                     pos += 1
             match element.attribute.get("type"):
-                case "string":
-                    element.value = content
-                case "float":
-                    element.value = float(content)
+                case None | "string":
+                    element.value=content
+                case"float":
+                    element.value=float(content)
+                case"int":
+                    element.value=int(content)
+                case"boolean":
+                    if content=="True" or content== "true" or content=="0":
+                        element.value=True
+                    elif content=="False" or content=="false" or content=="0":
+                        element.value=False
+                    else:
+                        raise TypeError
                 case _:
-                    element.value = content
-
+                  element.value=content            
             if source[pos] == ";":
                 pos += 1
             if stack:
@@ -113,6 +121,6 @@ def parse(source: str):
         else:
             pos+=1
     return document
-source='<doctype: web;><body:{<header type="string":{<h1 class="title": lorem ipsum;>};<main:{<p:§§;>};};'#test line
+source='<doctype: web;><body:{<header:{<h1 class="title": lorem ipsum;>};<main:{<p type="int":1;>};};'#test line
 doc=parse(source)#test line
-print(doc.body.header.h1.value)
+print(doc.body.main.p)

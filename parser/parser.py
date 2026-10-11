@@ -91,7 +91,14 @@ def parse(source: str):
                 while source[pos] != ";" and source[pos] !="<":
                     content += source[pos]
                     pos += 1
-            element.value = content
+            match element.attribute.get("type"):
+                case "string":
+                    element.value = content
+                case "float":
+                    element.value = float(content)
+                case _:
+                    element.value = content
+
             if source[pos] == ";":
                 pos += 1
             if stack:

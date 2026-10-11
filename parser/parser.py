@@ -99,12 +99,12 @@ def parse(source: str):
                 case"int":
                     element.value=int(content)
                 case"boolean":
-                    if content=="True" or content== "true" or content=="0":
+                    if content=="True" or content== "true" or content=="1":
                         element.value=True
                     elif content=="False" or content=="false" or content=="0":
                         element.value=False
                     else:
-                        raise TypeError
+                        raise TypeError()
                 case _:
                   element.value=content            
             if source[pos] == ";":

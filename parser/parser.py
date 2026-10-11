@@ -1,47 +1,40 @@
 class Document:
     def __init__(self):
-        self.content: list= []
+        self.content: list[Element] = []
 
     def __getattr__(self, name):
         for child in self.content:
             if child.name == name:
-                if child.is_structure:
-                    return child
-                return AttributeString(child.content[0], child.attribute)
+                return child
         raise AttributeError(name)
-class AttributeString(str):
-    def __new__(cls, value, attributes):
-        text = super().__new__(cls, value)
-        text.attribute = attributes # type: ignore
-        return text
+
+
 class Element:
-    def __init__(self,name):
-        self.name: str=name
-        self.content= []
-        self.value: object| None= None
-        self.attribute: dict={}
-        self.is_structure: bool= False
+    def __init__(self, name: str):
+        self.name: str = name
+        self.content: list[Element] = []
+        self.value: object | None = None
+        self.attribute: dict[str, str] = {}
+        self.is_structure: bool = False
 
-    def __getattr__(self, name):
+    def __getattr__(self, name: str):
         for child in self.content:
             if child.name == name:
-                if child.is_structure:
-                    return child
-                return child.content[0]
+                return child
         raise AttributeError(name)
+
 
 def parse(source: str):
     pos = 0
-    stack = []
-    root=[]
-    document=Document()
+    stack: list[Element] = []
+    document = Document()
     while pos < len(source):
         if source[pos] == "<":
             pos += 1
 
             name = ""
             content = ""
-            attributes={}
+            attributes: dict[str, str] = {}
             # Lire le nom jusqu'à l'espace qui annonce un attribut, ou jusqu'à :
             while source[pos] != " " and source[pos] != ":":
                 name += source[pos]
@@ -79,26 +72,7 @@ def parse(source: str):
             elif source[pos]=="§":
                 pos+=1
                 while source[pos]!="§":
-                    if source[pos]!="<":
-                        content=content+source[pos]
-                        if source[pos]==";":
-                            element.content.append(content)
-                            pass
-                    else:
-                        while source[pos]!=":":
-                            pos+=1
-                        pos+=1
-                        while source[pos]!=";":
-                            content=content+source[pos]
-                            pos+=1
-                        pos+=1
-                        while source[pos]!=">":
-                            pos+=1
-                        pos+=1
-                        if source[pos]==";":
-                            element.content.append(content)
-                            pass
-                        continue
+                    content += source[pos]
                     pos+=1
                 pos+=1
             elif source[pos]=='"' :#gestion des string ""
@@ -106,22 +80,24 @@ def parse(source: str):
                 while source[pos]!='"':
                     content+=source[pos]
                     pos+=1
-                continue
+                pos+=1
             elif source[pos]=="'" :
                 pos+=1
                 while source[pos]!="'":
                     content+=source[pos]
                     pos+=1
-            while source[pos] != ";" and source[pos] !="<":
-                content += source[pos]
+                pos+=1
+            else:
+                while source[pos] != ";" and source[pos] !="<":
+                    content += source[pos]
+                    pos += 1
+            element.value = content
+            if source[pos] == ";":
                 pos += 1
-            element.content.append(content)
-            pos += 1
             if stack:
                 stack[-1].content.append(element)
             else:
                 document.content.append(element)
-            print(element.name,"=",element.content)#test line. remove
         elif source[pos]=="}":
             pos+=1
             if source[pos]==";":
@@ -132,4 +108,4 @@ def parse(source: str):
     return document
 source='<doctype: web;><body:{<header type="string":{<h1 class="title": lorem ipsum;>};<main:{<p:§§;>};};'#test line
 doc=parse(source)#test line
-print(doc.body.header.h1)
+print(doc.body.header.h1.value)

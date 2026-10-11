@@ -1,5 +1,5 @@
-from socket import *
-from asyncio import *
+from socket import *#type:ignore
+from asyncio import *#type:ignore
 HOST="localhost"
 PORT=8080
 with socket(AF_INET,SOCK_STREAM) as s:
@@ -15,4 +15,6 @@ with socket(AF_INET,SOCK_STREAM) as s:
             data+=chunk
             if not chunk:
                 break
+        conn.sendall(b"ACK")
         print("recu:",data.decode())
+

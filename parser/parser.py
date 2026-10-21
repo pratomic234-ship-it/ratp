@@ -69,7 +69,7 @@ def parse(source: str):
                     document.content.append(element)
                 stack.append(element)
                 continue
-            elif source[pos]=="§":
+            elif source[pos]=="§":#TODO ajouter une gestion pour inline 
                 pos+=1
                 while source[pos]!="§":
                     content += source[pos]
@@ -123,4 +123,4 @@ def parse(source: str):
     return document
 source='<doctype: web;><body:{<header:{<h1 class="title": lorem ipsum;>};<main:{<p type="int":1;>};};'#test line
 doc=parse(source)#test line
-print(doc.body.main.p)
+print(doc.body.main.p)#TODO 

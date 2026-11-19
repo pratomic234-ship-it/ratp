@@ -16,7 +16,8 @@ class Element:
         self.value: object | None = None
         self.attribute: dict[str, str] = {}
         self.is_structure: bool = False
-        self.inline_content: list[str|Element]
+        self.inline_content: list[str|Element]=[]
+        self.isinline: bool = False
     def __getattr__(self, name: str):
         for child in self.content:
             if child.name == name:
@@ -25,7 +26,7 @@ class Element:
 
 
 def parse(source: str):
-    pos = 0
+    pos: int = 0
     stack: list[Element] = []
     document = Document()
     while pos < len(source):
@@ -81,6 +82,26 @@ def parse(source: str):
                #     content+=source[pos]
                 #    pos+=1
                #pos+=1
+            elif source[pos]=="§":
+                # § ... § active ici le traitement inline pour cet élément.
+                element.isinline=True
+                pos+=1
+                while source[pos]!="§":
+                    inline_content=""
+                    if source[pos]=="<":
+                        inline=""
+                        if inline_content:
+                            element.inline_content.append(source[pos])
+                        while source[pos-1]!=">":
+                            inline+=source[pos]
+                            pos+=1
+                        # parse() renvoie un Document ; on récupère l'Element complet et ses attributs.
+                        inline_element=parse(inline).content[0]
+                        element.inline_content.append(inline_element)
+                        continue
+                        pos+=1
+                    inline_content+=source[pos]
+                    pos+=1
             else:
                 while source[pos] != ";" and source[pos] !="<":
                     content += source[pos]
@@ -115,6 +136,8 @@ def parse(source: str):
         else:
             pos+=1
     return document
-source='<doctype: web;><body:{<header:{<h1 class="title": lorem ipsum;>};<main:{<p type="int":1;>};};'#test line
+source='<doctype: web;><body:{<header:{<h1 class="title": lorem ipsum;>};<main:{<p :§hey <b:gras;>§;>};};'#test line
 doc=parse(source)#test line
-print(doc.body.main.p.value)
+print(doc.body.main.p.inline_content)
+child = doc.body.main.p.inline_content[0]
+print(child.name, child.value, child.attribute)# pyright: ignore[reportAttributeAccessIssue] "

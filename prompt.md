@@ -64,9 +64,11 @@ Exemple :
 
 <title:salut;
 
-Heredoc
+Heredoc et contenu inline
 
 § ... § est utilisé comme heredoc pour les contenus textuels multilignes.
+
+Une expérimentation réutilise aussi § ... § pour délimiter un contenu inline pouvant contenir du texte et des balises. La syntaxe reste en cours de définition ; ne pas supposer que le comportement heredoc précédent et le comportement inline sont déjà réconciliés.
 
 Texte après ;
 
@@ -413,3 +415,15 @@ L'utilisateur s'intéresse aussi à Git et peut demander des commandes précises
 Avant toute modification ou tout commit, vérifier l'état Git. Ne jamais inclure par inadvertance les changements préexistants de l'utilisateur dans un commit ciblé ; ne committer que les fichiers explicitement concernés.
 
 Pour le contexte du projet, consulter d'abord ce fichier de prompt et l'historique Git pertinent ; ne pas prendre le README comme source principale du contexte.
+
+15. Contenu inline : expérimentation en cours
+
+L'exemple actuellement testé est :
+
+<p:§hey <b:gras;>§;>
+
+L'objectif est de conserver, dans l'ordre, les morceaux de texte et les balises inline. Une balise inline doit rester un objet `Element` complet, avec son nom, ses attributs et sa valeur ; ce n'est pas un type d'objet spécial pour le gras.
+
+Le prototype actuel utilise `Element.inline_content` pour y placer les objets inline parsés et un booléen nommé `isinline`. Le traitement est encore incomplet : la conservation ordonnée des morceaux de texte n'est pas finalisée. Ne pas présenter cette fonctionnalité comme terminée ni déplacer silencieusement les données vers `Element.content`.
+
+L'utilisateur tient à écrire lui-même le parseur. Lorsqu'il demande une petite modification, préserver sa structure et expliquer précisément quoi ajouter et pourquoi ; ne pas remplacer son bloc de code par une réécriture complète. Avancer par une seule petite étape et un test à la fois.

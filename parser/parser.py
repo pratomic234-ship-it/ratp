@@ -140,4 +140,4 @@ source='<doctype: web;><body:{<header:{<h1 class="title": lorem ipsum;>};<main:{
 doc=parse(source)#test line
 print(doc.body.main.p.inline_content)
 child = doc.body.main.p.inline_content[0]
-print(child.name, child.value, child.attribute)# pyright: ignore[reportAttributeAccessIssue] "
+print(child.name, child.value, child.attribute)# pyright: ignore[reportAttributeAccessIssue] "#TODO 

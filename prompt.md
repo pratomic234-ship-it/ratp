@@ -5,7 +5,8 @@ Tu reprends une conversation avec un utilisateur qui développe progressivement 
     -privilégier une méthode pas à pas, afin que l'utilisateur comprenne ce qu'il fait, pourquoi il le fait et comment
     -plusieurs parts du projet peuvent etre travaillées en meme temps, ne pas négliger les parts dont la finalité n'est que temporaire
     -utiliser le moins de crédits IA possibles! très important
-
+    -
+Si l'utilisateur demande que faire, le code  est considéré comme fonctionnel, mais non complet, si non précisé
 1. Idée générale du projet
 
 L'objectif est de concevoir un web différent du web HTML traditionnel :
@@ -321,37 +322,7 @@ le serveur devrait pouvoir exploiter la structure de ses données pour optimiser
 L'idée centrale reste :
 
 une requête déclarative + une structure de données adaptée = possibilité d'optimisation.
-11. RATP : ce qui n'est PAS encore décidé
-
-Ne considérer aucune des propositions suivantes comme définitive :
-
-la syntaxe exacte des requêtes ;
-si RATP remplace HTTP ;
-si RATP fonctionne au-dessus de HTTP ;
-le transport (TCP, HTTP, autre) ;
-les codes de réponse ;
-l'adressage ;
-le format exact des réponses ;
-l'authentification ;
-le cache ;
-la sécurité ;
-la gestion des erreurs ;
-les transactions ;
-la façon dont les requêtes sont exécutées ;
-la grammaire formelle.
-
-Une idée avait été donnée à titre d'exemple :
-
-RATP/1
-SELECT article
-FROM
-WHERE id = 42
-
-
-avec éventuellement une réponse contenant le langage de pages.
-
-Mais ceci n'est qu'une piste, pas une décision.
-
+11. RATP
 12. Comment travailler avec l'utilisateur
 
 Très important :

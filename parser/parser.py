@@ -16,7 +16,7 @@ class Element:
         self.value: object | None = None
         self.attribute: dict[str, str] = {}
         self.is_structure: bool = False
-
+        self.inline_content: list[str|Element]
     def __getattr__(self, name: str):
         for child in self.content:
             if child.name == name:
@@ -69,24 +69,18 @@ def parse(source: str):
                     document.content.append(element)
                 stack.append(element)
                 continue
-            elif source[pos]=="§":
-                pos+=1
-                while source[pos]!="§":
-                    content += source[pos]
-                    pos+=1
-                pos+=1
-            elif source[pos]=='"' :#gestion des string ""
-                pos+=1
-                while source[pos]!='"':
-                    content+=source[pos]
-                    pos+=1
-                pos+=1
-            elif source[pos]=="'" :
-                pos+=1
-                while source[pos]!="'":
-                    content+=source[pos]
-                    pos+=1
-                pos+=1
+            #elif source[pos]=='"' :#gestion des string ""
+             #   pos+=1
+               # while source[pos]!='"':
+              #      content+=source[pos]
+                 #   pos+=1
+                #pos+=1
+            #elif source[pos]=="'" :
+             #   pos+=1
+              #  while source[pos]!="'":
+               #     content+=source[pos]
+                #    pos+=1
+               #pos+=1
             else:
                 while source[pos] != ";" and source[pos] !="<":
                     content += source[pos]
@@ -123,4 +117,4 @@ def parse(source: str):
     return document
 source='<doctype: web;><body:{<header:{<h1 class="title": lorem ipsum;>};<main:{<p type="int":1;>};};'#test line
 doc=parse(source)#test line
-print(doc.body.main.p)
+print(doc.body.main.p.value)

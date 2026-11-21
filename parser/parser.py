@@ -23,8 +23,8 @@ class Element:
             if child.name == name:
                 return child
         raise AttributeError(name)
-
-
+    def __str__(self) -> str:
+            return self.name+"|" + str(self.value)
 def parse(source: str):
     pos: int = 0
     stack: list[Element] = []
@@ -70,28 +70,17 @@ def parse(source: str):
                     document.content.append(element)
                 stack.append(element)
                 continue
-            #elif source[pos]=='"' :#gestion des string ""
-             #   pos+=1
-               # while source[pos]!='"':
-              #      content+=source[pos]
-                 #   pos+=1
-                #pos+=1
-            #elif source[pos]=="'" :
-             #   pos+=1
-              #  while source[pos]!="'":
-               #     content+=source[pos]
-                #    pos+=1
-               #pos+=1
             elif source[pos]=="§":
                 # § ... § active ici le traitement inline pour cet élément.
                 element.isinline=True
                 pos+=1
+                inline_content=""
                 while source[pos]!="§":
-                    inline_content=""
+                    inline=""
                     if source[pos]=="<":
-                        inline=""
                         if inline_content:
-                            element.inline_content.append(source[pos])
+                            element.inline_content.append(inline_content)
+                            inline_content=""
                         while source[pos-1]!=">":
                             inline+=source[pos]
                             pos+=1
@@ -99,9 +88,11 @@ def parse(source: str):
                         inline_element=parse(inline).content[0]
                         element.inline_content.append(inline_element)
                         continue
-                        pos+=1
                     inline_content+=source[pos]
                     pos+=1
+                if inline_content:
+                    element.inline_content.append(inline_content)#todo
+                pos+=1
             else:
                 while source[pos] != ";" and source[pos] !="<":
                     content += source[pos]
@@ -139,5 +130,5 @@ def parse(source: str):
 source='<doctype: web;><body:{<header:{<h1 class="title": lorem ipsum;>};<main:{<p :§hey <b:gras;>§;>};};'#test line
 doc=parse(source)#test line
 print(doc.body.main.p.inline_content)
-child = doc.body.main.p.inline_content[0]
+child = d
 print(child.name, child.value, child.attribute)# pyright: ignore[reportAttributeAccessIssue] "#TODO 

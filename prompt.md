@@ -5,6 +5,7 @@ Tu reprends une conversation avec un utilisateur qui développe progressivement 
     -privilégier une méthode pas à pas, afin que l'utilisateur comprenne ce qu'il fait, pourquoi il le fait et comment
     -plusieurs parts du projet peuvent etre travaillées en meme temps, ne pas négliger les parts dont la finalité n'est que temporaire
     -utiliser le moins de crédits IA possibles! très important
+    - Consulter et suivre `todo.md` pour les tâches à venir. Ne pas maintenir ici une deuxième liste de fonctionnalités à faire.
     -
 Si l'utilisateur demande que faire, le code  est considéré comme fonctionnel, mais non complet, si non précisé
 1. Idée générale du projet
